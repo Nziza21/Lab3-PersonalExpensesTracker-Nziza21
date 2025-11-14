@@ -1,7 +1,6 @@
 import sys
 from datetime import datetime
 
-# === COLORS ===
 GREEN = "\033[92m"
 RED = "\033[91m"
 YELLOW = "\033[93m"
@@ -57,7 +56,6 @@ def check_balance():
                 print(f"{RED}Invalid input. Please enter a number.{RESET}")
 
 def add_expense():
-    # Read current balance
     try:
         with open("balance.txt", "r") as f:
             content = f.read().strip()
@@ -65,7 +63,6 @@ def add_expense():
     except FileNotFoundError:
         current_balance = 0.0
 
-    # Calculate total expenses
     total_expenses = 0.0
     try:
         with open("expenses.txt", "r") as f:
@@ -79,7 +76,6 @@ def add_expense():
     available_balance = current_balance - total_expenses
     print(f"\nYour available balance: ${available_balance:.2f}\n")
 
-    # --- DATE INPUT ---
     while True:
         date_input = input("Enter expense date (YYYY-MM-DD): ").strip()
         try:
@@ -88,10 +84,8 @@ def add_expense():
         except ValueError:
             print(f"{RED}Invalid date format! Please enter date as YYYY-MM-DD.{RESET}")
 
-    # --- ITEM NAME ---
     item = input("Enter expense name/item: ").strip()
 
-    # --- AMOUNT ---
     while True:
         try:
             amount = float(input("Enter amount spent: ").strip())
@@ -105,7 +99,6 @@ def add_expense():
         except ValueError:
             print(f"{RED}Invalid input. Please enter a number.{RESET}")
 
-    # Generate ID
     expense_id = 1
     try:
         with open("expenses.txt", "r") as f:
@@ -118,7 +111,6 @@ def add_expense():
 
     time_now = datetime.now().strftime("%H:%M")
 
-    # Save expense
     with open("expenses.txt", "a") as f:
         f.write(f"{expense_id} | {date_input} | {time_now} | {item} | {amount:.2f}\n")
 
